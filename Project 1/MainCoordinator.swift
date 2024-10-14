@@ -15,7 +15,12 @@ final class MainCoordinator: NavigationCoordinator {
     }
     
     func start() {
-        let viewController = ViewController()
+        let apiManager = ApiManager(
+            endpoint: Method.POST.rawValue,
+            body: nil
+        )
+        let service = Service(endpoint: apiManager)
+        let viewController = ViewController(service: service)
         navigationController.pushViewController(viewController, animated: true)
     }
 }
