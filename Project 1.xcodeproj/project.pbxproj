@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7801BFA72CAED29B00C7560E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7801BFA62CAED29800C7560E /* Endpoint.swift */; };
 		7801BFA92CBDB5AF00C7560E /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7801BFA82CBDB5A300C7560E /* Services.swift */; };
+		786DB95F2CFF3FAA00004FA6 /* ApiUrlConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786DB95E2CFF3F9B00004FA6 /* ApiUrlConstants.swift */; };
 		7894682F2CAAD2B700DCE80F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7894682E2CAAD2B700DCE80F /* AppDelegate.swift */; };
 		789468332CAAD2B700DCE80F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789468322CAAD2B700DCE80F /* ViewController.swift */; };
 		789468382CAAD2BB00DCE80F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 789468372CAAD2BB00DCE80F /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		7801BFA62CAED29800C7560E /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		7801BFA82CBDB5A300C7560E /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		786DB95E2CFF3F9B00004FA6 /* ApiUrlConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiUrlConstants.swift; sourceTree = "<group>"; };
 		7894682B2CAAD2B700DCE80F /* Project 1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project 1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7894682E2CAAD2B700DCE80F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		789468322CAAD2B700DCE80F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 		7894682D2CAAD2B700DCE80F /* Project 1 */ = {
 			isa = PBXGroup;
 			children = (
+				786DB95E2CFF3F9B00004FA6 /* ApiUrlConstants.swift */,
 				7801BFA52CAED27B00C7560E /* Service */,
 				7894682E2CAAD2B700DCE80F /* AppDelegate.swift */,
 				789468322CAAD2B700DCE80F /* ViewController.swift */,
@@ -208,7 +211,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					7894682A2CAAD2B700DCE80F = {
 						CreatedOnToolsVersion = 15.4;
@@ -277,6 +280,7 @@
 				789468332CAAD2B700DCE80F /* ViewController.swift in Sources */,
 				789468632CAAE15C00DCE80F /* MainCoordinator.swift in Sources */,
 				7801BFA72CAED29B00C7560E /* Endpoint.swift in Sources */,
+				786DB95F2CFF3FAA00004FA6 /* ApiUrlConstants.swift in Sources */,
 				7894682F2CAAD2B700DCE80F /* AppDelegate.swift in Sources */,
 				789468612CAADA4900DCE80F /* Coordinator.swift in Sources */,
 				7801BFA92CBDB5AF00C7560E /* Services.swift in Sources */,
@@ -502,7 +506,6 @@
 		789468592CAAD2BC00DCE80F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -522,7 +525,6 @@
 		7894685A2CAAD2BC00DCE80F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -542,7 +544,6 @@
 		7894685C2CAAD2BC00DCE80F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R9ZF9XRL8Y;
@@ -560,7 +561,6 @@
 		7894685D2CAAD2BC00DCE80F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R9ZF9XRL8Y;

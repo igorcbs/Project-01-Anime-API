@@ -13,40 +13,48 @@ protocol ServiceProtocol {
 
 final class Service: ServiceProtocol {
     let endpoint: ApiManager
+    let urlSession: URLSession
     
-    init(endpoint: ApiManager) {
+    init(
+        endpoint: ApiManager,
+        urlSession: URLSession = URLSession.shared
+    ) {
         self.endpoint = endpoint
+        self.urlSession = urlSession
     }
     
     func getData(url: String, completion: @escaping (Result<Data, any Error>) -> Void) {
-        guard let url = URL(string: url) else {
+        let fullURL = url + endpoint.apiKey
+        guard let url = URL(string: fullURL) else {
             return
         }
         var request = URLRequest(url: url)
-        request.httpMethod = endpoint.method
+        request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = endpoint.body
         
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+        let task = urlSession.dataTask(with: request) { data, response, error in
             // Verificar se houve algum erro
             if let error = error {
                 completion(.failure(error))
                 return
             }
-            
-            // Verificar se a resposta é válida
-            //            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-            //                let statusCodeError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Resposta inválida do servidor"])
-            //                completion(.failure(statusCodeError))
-            //                return
-            //            }
-            
+
             // Verificar se há dados
             guard let data = data else {
-                let noDataError = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Nenhum dado recebido"])
+                let noDataError = NSError(domain: "", code: 500, userInfo: [NSLocalizedDescriptionKey: "Nenhum dado recebido"])
                 completion(.failure(noDataError))
                 return
             }
-            
+            // Verifica se o response não veio False
+            if let dataString = String(data: data, encoding: .utf8),
+               dataString.contains("False")
+            {
+                let noResponseError = NSError(domain: "", code: 500, userInfo: [NSLocalizedDescriptionKey: "Response without data"])
+                completion(.failure(noResponseError))
+                return
+            }
+
             // Retornar os dados através da completion
             completion(.success(data))
         }

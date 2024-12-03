@@ -28,22 +28,20 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        print(#function)
+        configService()
     }
     
-//    func configService() {
-//        service?.getData(url: "https://graphql.anilist.co") { result in
-//            switch result {
-//            case .success(let success):
-////                do {
-//                print(success)
-////                } catch {
-////                    print("Erro no parce")
-////                }
-//            case .failure(let failure):
-//                print("Deu ruim: \(failure.localizedDescription)")
-//            }
-//        }
-//    }
+    func configService() {
+        service.getData(url: URLRequests.omdbapiURL.rawValue) { result in
+            switch result {
+            case .success(let success):
+                if let dataString = String(data: success, encoding: .utf8) {
+                    print("Dados recebidos: \(dataString)")
+                }
+            case .failure(let failure):
+                print("Deu ruim: \(failure.localizedDescription)")
+            }
+        }
+    }
 }
 

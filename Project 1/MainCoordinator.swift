@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 final class MainCoordinator: NavigationCoordinator {
     var navigationController: UINavigationController
     
@@ -17,7 +18,7 @@ final class MainCoordinator: NavigationCoordinator {
     func start() {
         let apiManager = ApiManager(
             endpoint: Method.POST.rawValue,
-            body: nil
+            apiKey: ApiKeys.movieApi.rawValue
         )
         let service = Service(endpoint: apiManager)
         let viewController = ViewController(service: service)

@@ -17,15 +17,18 @@ struct ApiManager {
     let method: String
     let body: Data?
     var headers: [String: String]? = nil
+    var apiKey: String
 
     init(endpoint: String,
          method: String = Method.GET.rawValue,
-         body: Data?,
-         headers: [String : String]? = nil
+         body: Data? = nil,
+         headers: [String : String]? = nil,
+         apiKey: String
     ) {
         self.endpoint = endpoint
         self.method = method
         self.body = body
         self.headers = headers
+        self.apiKey = apiKey
     }
 }
