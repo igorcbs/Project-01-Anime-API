@@ -14,6 +14,7 @@ final class SearchView: UIView {
 
     private let textField = UITextField()
     private let searchButton = UIButton()
+    private var textToSearch = String()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,7 +31,7 @@ extension SearchView: ViewCode {
         addSubview(textField)
         addSubview(searchButton)
     }
-    
+
     func buildConstraints() {
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 24),
@@ -44,16 +45,36 @@ extension SearchView: ViewCode {
             searchButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
-    
+
     func render() {
         textField.placeholder = "Digite aqui..."
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.clearButtonMode = .whileEditing
+        textField.delegate = self
         
         searchButton.setTitle("Buscar", for: .normal)
         searchButton.titleLabel?.textColor = .white
         searchButton.backgroundColor = UIColor.black
         searchButton.translatesAutoresizingMaskIntoConstraints = false
+        searchButton.addTarget(self, action: #selector(didClickButton), for: .touchUpInside)
+    }
+}
+
+extension SearchView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let text = textField.text as NSString? {
+            let newText = text.replacingCharacters(in: range, with: string)
+            print(newText)
+            textToSearch = newText
+        }
+        return true
+    }
+}
+
+extension SearchView {
+    @objc
+    func didClickButton() {
+        print("texto clicado: ", textToSearch)
     }
 }
