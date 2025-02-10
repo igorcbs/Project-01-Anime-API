@@ -20,10 +20,8 @@ DerivedData
 *.xcworkspace
 *.xcscheme
 *.xcworkspacedata
-*.pbxproj
 *.xcodeproj
 *.xcuserstate
-*.pbxproj
 
 # Bundler
 .bundle
