@@ -23,20 +23,20 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view
+        contentView.searchDelegate = self
     }
-    
+
     override func loadView() {
         view = contentView
     }
-    
-    func configService() {
-        service.getData(url: URLRequests.omdbapiURL.rawValue) { result in
+
+    func configService(with searchedText: String) {
+        service.getData(url: "\(URLRequests.omdbapiURL.rawValue)s=\(searchedText)") { result in
             switch result {
             case .success(let success):
-                if let dataString = String(data: success, encoding: .utf8) {
-                    print("Dados recebidos: \(dataString)")
-                }
+                print(success.search)
+                self.contentView.getContentResponse(success.search)
             case .failure(let failure):
                 print("Deu ruim: \(failure.localizedDescription)")
             }
@@ -44,3 +44,8 @@ final class ViewController: UIViewController {
     }
 }
 
+extension ViewController: SearchBarProtocol {
+    func getSearched(_ text: String) {
+        configService(with: text)
+    }
+}

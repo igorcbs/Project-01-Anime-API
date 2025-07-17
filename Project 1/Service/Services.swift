@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ServiceProtocol {
-    func getData(url: String, completion: @escaping (Result<Data, Error>) -> Void)
+    func getData(url: String, completion: @escaping (Result<Search, Error>) -> Void)
 }
 
 final class Service: ServiceProtocol {
@@ -23,7 +23,7 @@ final class Service: ServiceProtocol {
         self.urlSession = urlSession
     }
     
-    func getData(url: String, completion: @escaping (Result<Data, any Error>) -> Void) {
+    func getData(url: String, completion: @escaping (Result<Search, any Error>) -> Void) {
         let fullURL = url + endpoint.apiKey
         guard let url = URL(string: fullURL) else {
             return
@@ -54,9 +54,14 @@ final class Service: ServiceProtocol {
                 completion(.failure(noResponseError))
                 return
             }
-
-            // Retornar os dados através da completion
-            completion(.success(data))
+            // Realiza decode para transforma no tipo Search
+            // e depois Retornar os dados através da completion
+            do {
+                let decode = try JSONDecoder().decode(Search.self, from: data)
+                completion(.success(decode))
+            } catch {
+                completion(.failure(error))
+            }
         }
         task.resume()
     }

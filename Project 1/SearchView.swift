@@ -11,6 +11,7 @@ import UIKit
  2- assim que der certo mudar para searchBar e fazer requests com base no que foi digitado
 */
 final class SearchView: UIView {
+    weak var protocolo: SearchBarProtocol?
 
     private let textField = UITextField()
     private let searchButton = UIButton()
@@ -42,7 +43,8 @@ extension SearchView: ViewCode {
             searchButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 24),
             searchButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             searchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            searchButton.heightAnchor.constraint(equalToConstant: 48)
+            searchButton.heightAnchor.constraint(equalToConstant: 48),
+            searchButton.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 
@@ -76,5 +78,6 @@ extension SearchView {
     @objc
     func didClickButton() {
         print("texto clicado: ", textToSearch)
+        protocolo?.getSearched(textToSearch)
     }
 }

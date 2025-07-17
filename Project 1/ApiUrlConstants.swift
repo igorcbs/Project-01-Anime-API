@@ -8,7 +8,7 @@
 import Foundation
 
 enum ApiKeys: String {
-    case movieApi = "&apikey=c52f2ea1"
+    case movieApi = "&apikey=1ba6f21e"
 }
 
 enum URLRequests: String {

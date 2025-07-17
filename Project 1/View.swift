@@ -8,8 +8,22 @@
 import UIKit
 
 final class View: UIView {
+    weak var searchDelegate: SearchBarProtocol? {
+        didSet {
+            searchView.protocolo = searchDelegate
+        }
+    }
     private let searchView = SearchView()
-
+    private let tableView = TableViewComponent()
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.spacing = 24
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -18,24 +32,31 @@ final class View: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func getContentResponse(_ response: [SearchedModel]) {
+        tableView.getContentSearched(response)
+    }
 }
 
 extension View: ViewCode {
     func addViews() {
-        addSubview(searchView)
+        addSubview(stackView)
+        stackView.arrangedViews([
+            searchView,
+            tableView
+        ])
     }
     
     func buildConstraints() {
         NSLayoutConstraint.activate([
-            searchView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            searchView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            searchView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            searchView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -24)
         ])
     }
     
     func render() {
-        searchView.translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .darkGray
     }
 }
