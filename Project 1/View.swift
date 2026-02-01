@@ -10,7 +10,7 @@ import UIKit
 final class View: UIView {
     weak var searchDelegate: SearchBarProtocol? {
         didSet {
-            searchView.protocolo = searchDelegate
+            searchView.searchBarDelegate = searchDelegate
         }
     }
     private let searchView = SearchView()
@@ -58,5 +58,6 @@ extension View: ViewCode {
     
     func render() {
         backgroundColor = .darkGray
+        tableView.isHidden = true
     }
 }

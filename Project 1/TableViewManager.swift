@@ -32,10 +32,14 @@ extension TableViewManager: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewComponentCell", for: indexPath) as! TableViewComponentCell
         if !items.isEmpty {
-            cell.setTitleLabel(items[0].title)
+            cell.setupCell(items[indexPath.item])
         }
 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
     }
 }
 

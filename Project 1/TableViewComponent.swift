@@ -10,8 +10,8 @@ final class TableViewComponent: UIView {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .black
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
         tableViewManager.configureDelegates(with: tableView)
         return tableView
     }()
@@ -30,6 +30,7 @@ final class TableViewComponent: UIView {
     func getContentSearched(_ content: [SearchedModel]) {
         DispatchQueue.main.async {
             self.tableViewManager.getItems(content)
+            self.isHidden = false
             self.tableView.reloadData()
         }
     }
@@ -49,6 +50,6 @@ extension TableViewComponent: ViewCode {
         ])
     }
     
-    func render() {
+    func render() { // not implemented
     }
 }

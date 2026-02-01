@@ -11,11 +11,19 @@ import UIKit
  2- assim que der certo mudar para searchBar e fazer requests com base no que foi digitado
 */
 final class SearchView: UIView {
-    weak var protocolo: SearchBarProtocol?
+    weak var searchBarDelegate: SearchBarProtocol?
 
     private let textField = UITextField()
     private let searchButton = UIButton()
     private var textToSearch = String()
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.spacing = 16
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,22 +37,23 @@ final class SearchView: UIView {
 
 extension SearchView: ViewCode {
     func addViews() {
-        addSubview(textField)
-        addSubview(searchButton)
+        addSubview(stackView)
+        stackView.arrangedViews([
+            textField,
+            searchButton
+        ])
     }
 
     func buildConstraints() {
+        let stackViewBottomConstraint = stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        stackViewBottomConstraint.priority = .defaultLow
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 24),
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 24),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            stackViewBottomConstraint,
             textField.heightAnchor.constraint(equalToConstant: 48),
-
-            searchButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 24),
-            searchButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            searchButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            searchButton.heightAnchor.constraint(equalToConstant: 48),
-            searchButton.bottomAnchor.constraint(equalTo: bottomAnchor)
+            searchButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
 
@@ -67,7 +76,6 @@ extension SearchView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text as NSString? {
             let newText = text.replacingCharacters(in: range, with: string)
-            print(newText)
             textToSearch = newText
         }
         return true
@@ -77,7 +85,6 @@ extension SearchView: UITextFieldDelegate {
 extension SearchView {
     @objc
     func didClickButton() {
-        print("texto clicado: ", textToSearch)
-        protocolo?.getSearched(textToSearch)
+        searchBarDelegate?.getSearched(textToSearch)
     }
 }

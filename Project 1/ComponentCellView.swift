@@ -8,9 +8,7 @@
 import UIKit
 
 final class ComponentCellView: UIView {
-    var imageView = UIImageView()
-    var titleLabel = UILabel()
-    var descriptionView = UILabel()
+    let contentCellView = ContentCellView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,19 +23,25 @@ final class ComponentCellView: UIView {
 
 extension ComponentCellView: ViewCode {
     func addViews() {
-        addSubview(titleLabel)
+        addSubview(contentCellView)
     }
     
     func buildConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            contentCellView.topAnchor.constraint(equalTo: topAnchor),
+            contentCellView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentCellView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentCellView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
     func render() {
-        titleLabel.font = .systemFont(ofSize: 16)
-        titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentCellView.translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+
+extension ComponentCellView {
+    func setupView(_ model: SearchedModel) {
+        contentCellView.setCellInformation(model)
     }
 }

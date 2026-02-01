@@ -41,7 +41,7 @@ extension TableViewComponentCell: ViewCode {
 }
 
 extension TableViewComponentCell {
-    func setTitleLabel(_ title: String) {
-        cellView.titleLabel.text = title
+    func setupCell(_ model: SearchedModel) {
+        cellView.setupView(model)
     }
 }
