@@ -34,6 +34,7 @@ final class Service: ServiceProtocol {
         request.httpBody = endpoint.body
         
         let task = urlSession.dataTask(with: request) { data, response, error in
+            let noDataError = NSError(domain: "", code: 500, userInfo: [NSLocalizedDescriptionKey: "Nenhum dado recebido"])
             // Verificar se houve algum erro
             if let error = error {
                 completion(.failure(error))
@@ -42,7 +43,6 @@ final class Service: ServiceProtocol {
 
             // Verificar se há dados
             guard let data = data else {
-                let noDataError = NSError(domain: "", code: 500, userInfo: [NSLocalizedDescriptionKey: "Nenhum dado recebido"])
                 completion(.failure(noDataError))
                 return
             }
@@ -50,8 +50,7 @@ final class Service: ServiceProtocol {
             if let dataString = String(data: data, encoding: .utf8),
                dataString.contains("False")
             {
-                let noResponseError = NSError(domain: "", code: 500, userInfo: [NSLocalizedDescriptionKey: "Response without data"])
-                completion(.failure(noResponseError))
+                completion(.failure(noDataError))
                 return
             }
             // Realiza decode para transforma no tipo Search
